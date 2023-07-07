@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import { nanoid } from 'nanoid';
+// import { useEffect, useState } from 'react';
+// import { nanoid } from 'nanoid';
 import toast, { Toaster } from 'react-hot-toast';
 import ContactList from './contactList';
 import Filter from './filter';
 import Form from './form';
 import css from './App.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact, removeContact } from 'redux/contactSlice';
+import { useSelector } from 'react-redux';
+import { addContact } from 'redux/contactSlice';
 import { setFilter } from 'redux/filterSlice';
 
 // const saveContact = localStorage.getItem('contacts');
@@ -15,7 +15,7 @@ import { setFilter } from 'redux/filterSlice';
 const App = () => {
   const contacts = useSelector(state => state.contacts);
   const filter = useSelector(state => state.filter);
-  const dispatch = useDispatch();
+
   // const [contacts, setContacts] = useState(
   //   parseSaveContact ?? [
   //     { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -62,12 +62,6 @@ const App = () => {
     );
   };
 
-  // const removeContact = ContId => {
-  //   setContacts(prevContacts =>
-  //     prevContacts.filter(prevContact => prevContact.id !== ContId)
-  //   );
-  // };
-
   return (
     <div className={css.container}>
       <Toaster position="top-right" toastOptions={{ duration: 1500 }} />
@@ -76,10 +70,7 @@ const App = () => {
       <h2 className={css.title}>Contacts</h2>
       {contacts.length >= 1 && <Filter value={filter} onChange={getFilter} />}
       {contacts.length > 0 ? (
-        <ContactList
-          contacts={getListContacts()}
-          onRemoveContact={removeContact}
-        />
+        <ContactList contacts={getListContacts()} />
       ) : (
         <p>Your phonebook is empty. Please add contact.</p>
       )}

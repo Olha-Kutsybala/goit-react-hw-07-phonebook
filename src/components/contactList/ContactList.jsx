@@ -1,18 +1,24 @@
 import PropTypes from 'prop-types';
 import css from './ContactList.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
+import { removeContact } from 'redux/contactSlice';
 
-const ContactList = ({ contacts, onRemoveContact }) => {
+const ContactList = () => {
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
   return (
     <ul className={css.contactList}>
-      {contacts.map(({ id, name, number }) => (
-        <li className={css.contactItem} key={id}>
+      {contacts.map(contact => (
+        <li className={css.contactItem} key={contact.id}>
           <p className={css.contactInfo}>
-            {name}: {number}
+            {contact.name}: {contact.number}
           </p>
           <button
             className={css.contactDeleteBtn}
             type="button"
-            onClick={() => onRemoveContact(id)}
+            onClick={() => dispatch(removeContact(contact.id))}
           >
             x
           </button>
