@@ -1,6 +1,6 @@
 // import { useEffect, useState } from 'react';
 // import { nanoid } from 'nanoid';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import ContactList from './contactList';
 import Filter from './filter';
 import Form from './form';
