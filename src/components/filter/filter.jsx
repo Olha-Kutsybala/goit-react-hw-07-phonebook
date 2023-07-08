@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import css from './filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilter } from 'redux/selectors';
+import { setFilter } from 'redux/filterSlice';
 
 function Filter({ value, onChange }) {
   const filter = useSelector(getFilter);
@@ -16,7 +17,7 @@ function Filter({ value, onChange }) {
         name="filter"
         type="text"
         value={filter}
-        onChange={evt => dispatch(filter(evt.currentTarget.value))}
+        onChange={evt => dispatch(setFilter(evt.target.value))}
         className={css.input_filter}
       />
     </div>

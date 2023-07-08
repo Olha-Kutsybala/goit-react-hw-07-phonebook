@@ -3,11 +3,11 @@ import toast from 'react-hot-toast';
 
 const ContactSlice = createSlice({
   name: 'contacts',
-  initialState: [],
+  initialState: { contacts: [] },
   reducers: {
     addContact: {
       reducer(state, action) {
-        const isExist = state.find(
+        const isExist = state.contacts.find(
           contact => contact.name.toLowerCase() === action.payload.toLowerCase()
         );
 
@@ -15,7 +15,7 @@ const ContactSlice = createSlice({
           toast.error(`${action.payload.number} is already in contacts.`);
           return;
         }
-        return [action.payload, ...state];
+        state.contacts = [action.payload, ...state.contacts];
       },
 
       prerare(name, number) {
@@ -30,7 +30,7 @@ const ContactSlice = createSlice({
     },
     removeContact: {
       reducer(state, action) {
-        return state.filter(({ id }) => {
+        state.contacts = state.contacts.filter(({ id }) => {
           return id !== action.payload.id;
         });
       },

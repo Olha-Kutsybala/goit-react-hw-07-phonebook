@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import css from './Form.module.css';
-// import { useDispatch } from 'react-redux';
-// import { getContacts } from 'redux/selectors';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-// import { addContact } from 'redux/contactSlice';
+import { addContact } from 'redux/contactSlice';
 
 const Form = ({ onSubmit }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -32,9 +31,9 @@ const Form = ({ onSubmit }) => {
       alert("Enter the contact's name and number phone!");
       return;
     }
-    onSubmit(name, number);
+    // onSubmit(name, number);
 
-    // dispatch(addContact(name, number));
+    dispatch(addContact({ name, number }));
     reset();
   };
 
