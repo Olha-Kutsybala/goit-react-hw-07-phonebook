@@ -1,4 +1,5 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 
 const ContactSlice = createSlice({
   name: 'contacts',
@@ -6,8 +7,17 @@ const ContactSlice = createSlice({
   reducers: {
     addContact: {
       reducer(state, action) {
+        const isExist = state.find(
+          contact => contact.name.toLowerCase() === action.payload.toLowerCase()
+        );
+
+        if (isExist) {
+          toast.error(`${action.payload.number} is already in contacts.`);
+          return;
+        }
         return [action.payload, ...state];
       },
+
       prerare(name, number) {
         return {
           payload: {
