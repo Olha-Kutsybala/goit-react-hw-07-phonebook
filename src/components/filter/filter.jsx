@@ -3,7 +3,7 @@ import css from './filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilter } from 'redux/selectors';
 
-function Filter() {
+function Filter({ value, onChange }) {
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
@@ -16,14 +16,29 @@ function Filter() {
         name="filter"
         type="text"
         value={filter}
-        onChange={e => {
-          dispatch(filter(e.currentTarget.value));
-        }}
+        onChange={evt => dispatch(filter(evt.currentTarget.value))}
         className={css.input_filter}
       />
     </div>
   );
 }
+
+// function Filter({ value, onChange }) {
+//   return (
+//     <div className={css.filter_container}>
+//       <label className={css.label_filter} htmlFor="filter">
+//         Filter
+//       </label>
+//       <input
+//         name="filter"
+//         type="text"
+//         value={value}
+//         onChange={onChange}
+//         className={css.input_filter}
+//       />
+//     </div>
+//   );
+// }
 
 Filter.propTypes = {
   value: PropTypes.string.isRequired,

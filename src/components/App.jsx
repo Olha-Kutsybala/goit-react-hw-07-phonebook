@@ -6,15 +6,13 @@ import Filter from './filter';
 import Form from './form';
 import css from './App.module.css';
 import { useSelector } from 'react-redux';
-import { addContact } from 'redux/contactSlice';
-import { setFilter } from 'redux/filterSlice';
+import { getContacts } from 'redux/selectors';
 
 // const saveContact = localStorage.getItem('contacts');
 // const parseSaveContact = JSON.parse(saveContact);
 
 const App = () => {
-  const contacts = useSelector(state => state.contacts);
-  const filter = useSelector(state => state.filter);
+  const contacts = useSelector(getContacts);
 
   // const [contacts, setContacts] = useState(
   //   parseSaveContact ?? [
@@ -46,36 +44,61 @@ const App = () => {
   //     number,
   //   };
 
-  // setContacts([contact, ...contacts]);
+  //   // setContacts([contact, ...contacts]);
   //   setContacts(prevContacts => [...prevContacts, contact]);
   //   toast.success(`${name} successfully add.`);
   // };
 
-  const getFilter = event => {
-    setFilter(event.currentTarget.value);
-  };
+  // const getFilter = event => {
+  //   setFilter(event.currentTarget.value);
+  // };
 
-  const getListContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(normalizedFilter)
-    );
-  };
+  // const getListContacts = () => {
+  //   const normalizedFilter = filter.toLowerCase();
+
+  //   return contacts.filter(({ name }) =>
+  //     name.toLowerCase().includes(normalizedFilter)
+  //   );
+  // };
+
+  // const removeContact = ContId => {
+  //   setContacts(prevContacts =>
+  //     prevContacts.filter(prevContact => prevContact.id !== ContId)
+  //   );
+  // };
 
   return (
     <div className={css.container}>
       <Toaster position="top-right" toastOptions={{ duration: 1500 }} />
       <h1 className={css.title}>Phonebook</h1>
-      <Form onSubmit={addContact}></Form>
+      <Form></Form>
       <h2 className={css.title}>Contacts</h2>
-      {contacts.length >= 1 && <Filter value={filter} onChange={getFilter} />}
+      {contacts.length >= 1 && <Filter />}
       {contacts.length > 0 ? (
-        <ContactList contacts={getListContacts()} />
+        <ContactList />
       ) : (
         <p>Your phonebook is empty. Please add contact.</p>
       )}
     </div>
   );
+
+  // return (
+  //   <div className={css.container}>
+  //     <Toaster position="top-right" toastOptions={{ duration: 1500 }} />
+  //     <h1 className={css.title}>Phonebook</h1>
+  //     <Form onSubmit={addContact}></Form>
+  //     <h2 className={css.title}>Contacts</h2>
+  //     {contacts.length >= 1 && <Filter value={filter} onChange={getFilter} />}
+  //     {contacts.length > 0 ? (
+  //       <ContactList
+  //         contacts={getListContacts()}
+  //         onRemoveContact={removeContact}
+  //       />
+  //     ) : (
+  //       <p>Your phonebook is empty. Please add contact.</p>
+  //     )}
+  //   </div>
+  // );
 };
 
 export default App;

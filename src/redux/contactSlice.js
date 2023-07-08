@@ -6,7 +6,7 @@ const ContactSlice = createSlice({
   reducers: {
     addContact: {
       reducer(state, action) {
-        return [...state, action.payload];
+        return [action.payload, ...state];
       },
       prerare(name, number) {
         return {
