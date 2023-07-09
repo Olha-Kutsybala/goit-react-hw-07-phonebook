@@ -1,11 +1,10 @@
-import PropTypes from 'prop-types';
 import css from './Form.module.css';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { addContact } from 'redux/contactSlice';
+import toast from 'react-hot-toast';
+import { useContacts } from 'hooks/useContacts';
 
-const Form = ({ onSubmit }) => {
-  const dispatch = useDispatch();
+const Form = () => {
+  const { contacts, addContact } = useContacts();
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -27,13 +26,21 @@ const Form = ({ onSubmit }) => {
   };
   const handleSubmit = event => {
     event.preventDefault();
+
     if (name.trim() === '' || number.trim() === '') {
       alert("Enter the contact's name and number phone!");
       return;
     }
-    // onSubmit(name, number);
+    const isExist = contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
 
-    dispatch(addContact({ name, number }));
+    if (isExist) {
+      toast.error(`${number} is already in contacts.`);
+      return;
+    }
+
+    addContact({ name, number });
     reset();
   };
 
@@ -83,8 +90,4 @@ const Form = ({ onSubmit }) => {
   );
 };
 
-Form.propTypes = {
-  name: PropTypes.string,
-  number: PropTypes.number,
-};
 export default Form;
