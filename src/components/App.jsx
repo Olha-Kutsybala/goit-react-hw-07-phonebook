@@ -5,20 +5,18 @@ import Form from './form';
 import css from './App.module.css';
 import { useContacts } from 'hooks/useContacts';
 import { useEffect } from 'react';
-import { fetchContacts } from 'redux/operations';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getError, getIsLoading } from 'redux/selectors';
 
 const App = () => {
-  const { contacts } = useContacts();
-  const dispatch = useDispatch();
+  const { contacts, fetchContacts } = useContacts();
 
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
 
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+    fetchContacts();
+  }, [fetchContacts]);
 
   return (
     <div className={css.container}>
